@@ -114,7 +114,7 @@ for turn in range(9):
             final_result = 2
         break
     #Diagonal going left-down
-    if(board[2][0] == board[1][1] == board[2][0]):
+    if(board[2][0] == board[1][1] == board[0][2]):
         if(turn_tracker == 1):
             final_result = 1
         elif(turn_tracker == 2):
