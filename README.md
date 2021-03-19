@@ -1,3 +1,8 @@
 # Personal-Projects
 
-A compilation of personal projects, both successes and failures. Hopefully my projects will improve over time.
+A compilation of personal projects:
+
+TicTacToeCommandLine - February 2021
+TicTacToe - February 2021
+Connect4CommandLine - February 2021
+Connect4 - March 2021
