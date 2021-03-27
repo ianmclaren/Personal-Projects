@@ -1,4 +1,4 @@
-**Connect 4**
+**Connect 4 Command Line**
 
 Description: 
 A connect 4 game played using the command line. This code is used for most of the backend of my Connect4 project.
