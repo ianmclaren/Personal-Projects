@@ -12,6 +12,7 @@ public class Sorter extends JFrame{
         this.setSize(700, 700);
         this.setLayout(new BorderLayout(0, 0));
         this.setResizable(false);
+        this.setTitle("Array Sorting Visualizer");
 
         JPanel header = new JPanel();
         JPanel leftPanel = new JPanel();
