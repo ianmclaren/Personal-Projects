@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.concurrent.*;
 import java.lang.Object;
 
-public class Array extends JPanel implements ActionListener{
+public class Array extends JFrame implements ActionListener{
     
     JButton bubbleSortButton;
     JButton quickSortButton;
@@ -18,6 +18,12 @@ public class Array extends JPanel implements ActionListener{
     
     
     Array(){
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600, 500);
+        this.setLayout(new BorderLayout(0, 0));
+        this.setResizable(false);
+        this.setTitle("Array Sorting Visualizer");
+        
         this.setLayout(null);
 
         /* Creating Buttons */
@@ -29,7 +35,7 @@ public class Array extends JPanel implements ActionListener{
         bubbleSortButton.setBounds(150, 420, 90, 30);
         quickSortButton.setBounds(250, 420, 90, 30);
         insertionSortButton.setBounds(350, 420, 90, 30);
-        resetButton.setBounds(0, 420, 100, 30);
+        resetButton.setBounds(5, 420, 100, 30);
 
         bubbleSortButton.setFocusable(false);
         quickSortButton.setFocusable(false);
@@ -55,11 +61,12 @@ public class Array extends JPanel implements ActionListener{
         for(int i = 0; i < 20; i++){
             bars[i] = new JPanel();
             bars[i].setBackground(Color.CYAN);
-            bars[i].setBounds((i * 29), (400 - heights[i]), 29, heights[i]);
+            bars[i].setBounds((i * 29 + 3), (400 - heights[i]), 29, heights[i]);
             bars[i].setBorder(barBorder);
             this.add(bars[i]);
         }
         
+        this.setVisible(true);
     }
 
     
@@ -101,6 +108,16 @@ public class Array extends JPanel implements ActionListener{
         return (i + 1);
     }
 
+    public static void bubbleSort(JPanel bars[]){
+        for(int i = 0; i < bars.length - 1; i++){
+            for(int j = 0; j < bars.length - i - 1; j++){
+                if(bars[j].getHeight() > bars[j+1].getHeight()){
+                    swap(bars, j, j+1);
+                }
+            }
+        }
+    }
+
     public static void quickSort(JPanel bars[], int low, int high){
         if(low < high){
             int partition = partition(bars, low, high);
@@ -109,19 +126,25 @@ public class Array extends JPanel implements ActionListener{
         }
     }
 
+    public static void insertionSort(JPanel bars[]){
+        for(int i = 1; i < bars.length; i++){
+            JPanel temp = new JPanel();
+            temp.setBounds(bars[i].getX(), bars[i].getY(), bars[i].getWidth(), bars[i].getHeight());
+            int j = i - 1;
+
+            while(j >= 0 && bars[j].getHeight() > temp.getHeight()){
+                bars[j+1].setBounds(bars[j+1].getX(), bars[j].getY(), bars[j+1].getWidth(), bars[j].getHeight());
+                j = j - 1;
+            }
+            bars[j+1].setBounds(bars[j+1].getX(), temp.getY(), bars[j+1].getWidth(), temp.getHeight());
+        }
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == bubbleSortButton){
-            //Performing the bubble sort
-            
-            for(int i = 0; i < bars.length - 1; i++){
-                for(int j = 0; j < bars.length - i - 1; j++){
-                    if(bars[j].getHeight() > bars[j+1].getHeight()){
-                        swap(bars, j, j+1);
-                    }
-                }
-            }
+            bubbleSort(bars);
         }
         
         if(e.getSource() == quickSortButton){
@@ -129,17 +152,7 @@ public class Array extends JPanel implements ActionListener{
         }
         
         if(e.getSource() == insertionSortButton){
-            for(int i = 1; i < bars.length; i++){
-                JPanel temp = new JPanel();
-                temp.setBounds(bars[i].getX(), bars[i].getY(), bars[i].getWidth(), bars[i].getHeight());
-                int j = i - 1;
-
-                while(j >= 0 && bars[j].getHeight() > temp.getHeight()){
-                    bars[j+1].setBounds(bars[j+1].getX(), bars[j].getY(), bars[j+1].getWidth(), bars[j].getHeight());
-                    j = j - 1;
-                }
-                bars[j+1].setBounds(bars[j+1].getX(), temp.getY(), bars[j+1].getWidth(), temp.getHeight());
-            }
+            insertionSort(bars);
         }
 
         if(e.getSource() == resetButton){
