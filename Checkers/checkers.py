@@ -47,14 +47,14 @@ display_board()
 pygame.display.update()
 
 # GAME
-PLAYER_TURN = 1
+PLAYER_TURN = 2
 
 # Switch the player turn
 def end_turn():
     global PLAYER_TURN
-    if PLAYER_TURN is 1:
+    if PLAYER_TURN == 1:
         PLAYER_TURN = 2
-    elif PLAYER_TURN is 2:
+    elif PLAYER_TURN == 2:
         PLAYER_TURN = 1
 
 run = True
@@ -69,15 +69,14 @@ while run:
                 pos = pygame.mouse.get_pos()
                 col, row = np.floor(np.array(pos) / SQUARE_SIZE).astype(int)
                 print(f"Column: {col}, Row: {row}")
+                print(f"PLAYER: {PLAYER_TURN}, board: {board[row]}")
+                
 
                 #TODO:Verification
-                if board[col][row] == PLAYER_TURN:
+                if board[row][col] == PLAYER_TURN:
                     print("Valid move")
+                    end_turn()
                     continue
                 else:
                     print("Not a piece")
-                
-
-    #print(PLAYER_TURN)
-    end_turn()
 
