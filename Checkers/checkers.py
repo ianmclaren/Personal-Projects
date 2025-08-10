@@ -56,6 +56,29 @@ def end_turn():
         PLAYER_TURN = 2
     elif PLAYER_TURN == 2:
         PLAYER_TURN = 1
+    else:
+        print("ERROR: PLAYER_TURN invalid")
+
+def find_valid_moves(row, col):
+    valid_moves = []
+    if board[row][col] == PLAYER_TURN:
+        if PLAYER_TURN == 1:
+            if col != 0: valid_moves.append((row + 1, col - 1))
+            if col != 7: valid_moves.append((row + 1, col + 1))
+        elif PLAYER_TURN == 2:
+            if col != 0: valid_moves.append((row - 1, col - 1))
+            if col != 7: valid_moves.append((row - 1, col + 1))
+            #TODO: Square can't be occupied
+            #TODO: Handle King cases
+            #TODO: Place square checking into own function? This may become a massive nested loop
+        print(valid_moves)       
+    else:
+        print("ERROR: No Valid Moves for selected piece")
+    return valid_moves
+
+def draw_valid_moves(squares):
+    return #stub
+
 
 run = True
 #Main game loop
@@ -68,13 +91,14 @@ while run:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 col, row = np.floor(np.array(pos) / SQUARE_SIZE).astype(int)
-                print(f"Column: {col}, Row: {row}")
-                print(f"PLAYER: {PLAYER_TURN}, board: {board[row]}")
-                
+                #print(f"Column: {col}, Row: {row}")
+                #print(f"PLAYER: {PLAYER_TURN}, board: {board[row]}")
 
-                #TODO:Verification
                 if board[row][col] == PLAYER_TURN:
-                    print("Valid move")
+                    print(f"Valid move for player {PLAYER_TURN}")
+                    #TODO: move valid_moves declaration outside this if?
+                    valid_moves = find_valid_moves(row, col)
+                    draw_valid_moves(valid_moves)
                     end_turn()
                     continue
                 else:
